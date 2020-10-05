@@ -21,7 +21,7 @@
      and you are entirely responsible for their proper installation for grading purposes.
 ---
 #### 5 Parts to be implemented
-* **Part 1 : Map**
+ **Part 1 : Map**
   Implement a group of C++ classes that implement the structure and operation of a map for the game Warzone https://www.warzone.com/.
 *  **Map Class : Map.h, Map.cpp, MapDriver.cpp**                                                                            
     - The **Map class** is implemented as a **connected graph**. The graph’s nodes represents a territory (implemented as a **Territory class**). 
@@ -35,7 +35,7 @@
         3 each country belongs to one and only one continent.
     - Driver that creates different Map objects and checks whether they are valid or not.
   
-* **Part 2 : Map loader**
+ **Part 2 : Map loader**
     Implement a group of C++ classes that reads and loads a map file in the .map text file format as found in the “Domination” game source files, available at: http://domination.sourceforge.net/getmaps.shtm.
 * **Map loader Class: MapLoader.h/.cpp, CapLoaderDriver.cpp**    
   - Map loader can read any Domination map file.
@@ -43,7 +43,7 @@
   - Map loader should be able to read any text file (even invalid ones).
   - Driver reads many different map files, creates a graph object for the valid ones and rejects the invalid ones.
 
-* **Part 4 : Player**
+ **Part 4 : Player**
     Implement a group of C++ classes that implement a Warzone player using the following design: 
     1. A player owns a collection of territories (see **Part 1**).
     2. A player owns a hand of Cards (see **Part 5**). 
@@ -55,7 +55,7 @@
     - Player contains a **issueOrder()** method that creates an order object and adds it to the list of orders.
     - **Driver** creates players and demonstrates that the above features are available.
  
- * **Part 3 : Orders list**
+  **Part 3 : Orders list**
     Implement a group of C++ classes that implement a Warzone player orders using the following design:
  * **OrdersList Class: OrderList.h/.cpp, OrdersDriver.cpp**       
     - The **OrdersList** class contains a list of **Order** objects.
@@ -67,7 +67,7 @@
     - The **OrdersList** class implements a **move()** method to move an order in the list of orders.
     - Driver that creates orders of every kind, places them in an **OrdersList** object, and demonstrates that the above features are available.
     
-* **Part 5 : Cards deck/hand**  
+ **Part 5 : Cards deck/hand**  
   Implement a group of C++ classes that implements a **deck** and **hand** of Warzone cards.
 * **Cards deck/hand Class: Cards.h/.cpp, CardsDriver.cpp**  
   - **Deck** is a finite collection of Warzone cards.
