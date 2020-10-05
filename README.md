@@ -2,7 +2,7 @@
 ![CU-logo](https://github.com/BestBonBai/COMP348/blob/master/Concordia-logo.jpeg) ![ENCS-logo](https://github.com/BestBonBai/COMP348/blob/master/logoENCS.jpg) 
 ---
 ## COMP345 : Advanced program design with C++ 
----
+
 ### Team Project
 * Date: Fall 2020
 * Instructor: Dr. Nora Houari, houari@encs.concordia.ca
