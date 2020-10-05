@@ -55,7 +55,7 @@
     - Player contains a **issueOrder()** method that creates an order object and adds it to the list of orders.
     - **Driver** creates players and demonstrates that the above features are available.
  
-  **Part 3 : Orders list**
+ **Part 3 : Orders list**
     Implement a group of C++ classes that implement a Warzone player orders using the following design:
  * **OrdersList Class: OrderList.h/.cpp, OrdersDriver.cpp**       
     - The **OrdersList** class contains a list of **Order** objects.
