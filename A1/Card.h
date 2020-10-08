@@ -15,6 +15,13 @@
 #include <vector>
 #include <algorithm> //for sort, union, intersection method
 #include <iterator> 
+
+//define some color styles for boring print
+#define COLOR(msg, code) "\033[1;" #code "m" msg "\033[0m" 
+#define RED(msg) COLOR(msg, 31)
+#define GREEN(msg) COLOR(msg, 32)
+#define YELLOW(msg) COLOR(msg, 33)
+
 using namespace std;
 
 class Card
@@ -22,6 +29,10 @@ class Card
 public:
 	Card();
 	~Card();
+	//copy constructor
+	Card(const Card& c);
+	//assignment operators
+	Card& operator = (const Card& c);
 
 	//initialize the type vec
 	void initial_vec_type_card();
@@ -37,9 +48,10 @@ public:
 	string* get_card_type();
 	
 
+
 private:
 	//the vector stores the 6 types of card, 0 is spy, 1->boomb, 2->reinforcement, 3->blockade, 4->airlift, 5->displomacy
-	vector<string> vec_types_card;
+	vector<string> vec_types_card = {"spy", "boomb", "reinforcement", "blockade", "airlift", "displomacy"};
 	string* card_type;//for card type
 
 };
@@ -50,6 +62,11 @@ class Deck: public Card{
 public:
 	Deck();
 	~Deck();
+	//copy constructor
+	Deck(const Deck& d);
+	//assignment operators
+	Deck& operator=(const Deck& d);
+
 	//initial the deck vec, assign 30 cards in it, each type has 5 cards.
 	void initial_vec_deck();
 
@@ -65,21 +82,24 @@ public:
 	//the method is to return played cards into Deck_vec
 	void add_card_to_deck_vec(Card* one_card);
 
-	//get the current vec_deck
-	//vector<Card*>* get_current_vec_deck();
 
 private:
-	vector<Card*> vec_deck;
+	vector<Card*> vec_deck; //store deck cards
 	Card* ptr_card;//pointer to card
 	Card* temp_card;//for draw and remove the element of vector
 };
 
-//HandCards class inherit Card class and Deck Class (convinent to change deck)
-class HandCards : public Card, public Deck {
+//HandCards class inherit  Deck Class (convinent to change deck)
+class HandCards :  public Deck {
 
 public:
 	HandCards();
 	~HandCards();
+	//copy constructor
+	HandCards(const HandCards& h);
+	//assignment operators
+	HandCards& operator=(const HandCards& h);
+
 	//set vec hand cards
 	void set_vec_hand_cards(Card* a_card);
 	//test to print the vec_hand_cards
@@ -89,9 +109,9 @@ public:
 
 	//play() method that is called to play the card
 	//creates an order and add it to the player's list, then return the card to the deck.
-	void play(Card* a_card);
+	void play(Card* a_card, Deck* a_Deck);
 
-	//return a card to the deck cards
+	//return a card to the deck cards, for play() method
 	void return_played_card_to_deck(Deck* a_Deck);
 
 	//get pointer to vec_hand_cards
@@ -99,10 +119,9 @@ public:
 	//get pointer to vec_play_cards
 	vector<Card*>* get_vec_play_cards();
 
-	//remove the a played card from hand_cards
+	//remove the a played card from hand_cards, for play() method
 	void remove_played_card_of_hand_cards(Card* r_card);
-	//remove all played cards of handcards
-	void remove_all_played_cards_of_hand_cards();
+
 	//clear play_cards after player played cards
 	void clear_play_cards();
 

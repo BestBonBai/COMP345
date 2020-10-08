@@ -2,8 +2,6 @@
 
 Card::Card()
 {
-	//cout << " Card is starting...initial types..." << endl;
-	initial_vec_type_card();
 }
 
 Card::~Card()
@@ -12,16 +10,25 @@ Card::~Card()
 	//delete(card_type);
 }
 
+Card::Card(const Card & c)
+{
+	this->vec_types_card = *new vector<string>(c.vec_types_card);
+	this->card_type = new string(*(c.card_type));
+}
+
+Card & Card::operator=(const Card & c)
+{
+	// TODO: insert return statement here
+	this->vec_types_card = *new vector<string>(c.vec_types_card);
+	this->card_type = new string(*(c.card_type));
+	return *this;
+}
+
+
 void Card::initial_vec_type_card()
 {
 	//assign types to array
 	
-	vec_types_card.push_back("spy");		
-	vec_types_card.push_back("boomb");		
-	vec_types_card.push_back("reinforcement");		
-	vec_types_card.push_back("blockade");
-	vec_types_card.push_back("airlift");		
-	vec_types_card.push_back("displomacy");
 		
 }
 
@@ -50,8 +57,10 @@ string * Card::get_card_type()
 
 
 
+
 Deck::Deck()
 {
+
 }
 
 Deck::~Deck()
@@ -59,6 +68,22 @@ Deck::~Deck()
 	//delete ptr
 	//delete(ptr_card);//pointer to card
 	//delete(temp_card);
+}
+
+Deck::Deck(const Deck & d)
+{
+	this->vec_deck = *new vector<Card*>(d.vec_deck);
+	this->ptr_card = new Card(*(d.ptr_card));
+	this->temp_card = new Card(*(d.temp_card));
+}
+
+Deck & Deck::operator=(const Deck & d)
+{
+	// TODO: insert return statement here
+	this->vec_deck = *new vector<Card*>( d.vec_deck);
+	this->ptr_card = new Card(*(d.ptr_card));
+	this->temp_card = new Card(*(d.temp_card));
+	return *this;
 }
 
 void Deck::initial_vec_deck()
@@ -91,19 +116,20 @@ void Deck::initial_vec_deck()
 			vec_deck.push_back(ptr_card);
 		}
 	}
+	cout << GREEN("Deck Cards is initialized\n") <<endl;
 }
 
 void Deck::print_vec_deck_size()
 {
-	cout <<"\n The current vec_deck contains "<<vec_deck.size() <<" cards. \n" <<endl;
+	cout << YELLOW(" The current vec_deck contains ") << vec_deck.size() << YELLOW(" cards. \n") << endl;
 	
 }
 
 void Deck::print_vec_deck()
 {
-	cout << "\n The current vec_deck contains " << vec_deck.size() << " cards. \n" << endl;
+	cout << GREEN("\n The current vec_deck contains ") << vec_deck.size() << GREEN(" cards. \n") << endl;
 	for (int i = 0; i < vec_deck.size(); i++) {
-		cout << "  # "<<i << " card is " << *vec_deck.at(i)->get_card_type() << endl;
+		cout << YELLOW("  # ")<<i << YELLOW(" card is ") << *vec_deck.at(i)->get_card_type() << endl;
 	}
 }
 
@@ -137,6 +163,20 @@ HandCards::~HandCards()
 	//destruct
 }
 
+HandCards::HandCards(const HandCards & h)
+{
+	this->vec_hand_cards = *new vector<Card*>( h.vec_hand_cards);
+	this->vec_play_cards = *new vector<Card*>(h.vec_play_cards);
+}
+
+HandCards & HandCards::operator=(const HandCards & h)
+{
+	// TODO: insert return statement here
+	this->vec_hand_cards = *new vector<Card*>(h.vec_hand_cards);
+	this->vec_play_cards = *new vector<Card*>(h.vec_play_cards);
+	return *this;
+}
+
 void HandCards::set_vec_hand_cards(Card * a_card)
 {
 	//add the card into the handcards,we can recall the deck->draw() to get a card
@@ -147,34 +187,43 @@ void HandCards::set_vec_hand_cards(Card * a_card)
 void HandCards::print_vec_hand_cards()
 {
 	if (vec_hand_cards.size() > 0) {
-		cout << "hand cards has " << vec_hand_cards.size() << " cards " << endl;
+		cout << GREEN(" The Hand cards has ") << vec_hand_cards.size() << GREEN(" cards ") << endl;
 		for (int j = 0; j < vec_hand_cards.size(); j++) {
 			cout << "  # " << j << " is " << *vec_hand_cards.at(j)->get_card_type() << endl;
 		}
 	}
 	else {
-		cout << "\n the hand cards is empty" << endl;
+		cout << GREEN(" the hand cards is empty \n") << endl;
 	}
 }
 
 void HandCards::print_vec_play_cards()
 {
 	if (vec_play_cards.size() > 0) {
-		cout << " the play cards order is: " << endl;
+		cout << GREEN(" the play cards order is: ") << endl;
 		//traverse to print all play cards order
 		for (int i = 0; i < vec_play_cards.size(); i++) {
 			cout << "  # " << i << " is " << *vec_play_cards.at(i)->get_card_type() << endl;
 		}
 	}
 	else {
-		cout << "\n the play cards is empty..." << endl;
+		cout << GREEN("\n the play cards is empty... \n") << endl;
 	}
 }
 
-void HandCards::play(Card* a_card)
+void HandCards::play(Card* a_card, Deck* a_Deck)
 {
 	//set this card to play order (vec_play_cards)
 	vec_play_cards.push_back(a_card);
+
+	//put back into the deck
+	return_played_card_to_deck(a_Deck);
+
+	//remove from the hand_cards
+	remove_played_card_of_hand_cards(a_card);
+
+	//remove this card from the play_cards
+	vec_play_cards.pop_back();
 
 }
 
@@ -206,22 +255,14 @@ void HandCards::remove_played_card_of_hand_cards(Card* r_card)
 	for (int p = 0; p < vec_hand_cards.size(); p++) {
 		if (*vec_hand_cards.at(p)->get_card_type() == *r_card->get_card_type()) {
 			//find a same type card, then delete, and return.
+			//vec_hand_cards.erase(vec_hand_cards.begin() + p);
 			vec_hand_cards.erase(vec_hand_cards.begin() + p);
-			cout << "...deleting the card "<< *r_card->get_card_type() <<  endl;
+			cout << RED("...deleting the card ") << *r_card->get_card_type() << RED(" of the Hand cards...\n")<<  endl;
 			return;
 		}
 	}
 }
 
-void HandCards::remove_all_played_cards_of_hand_cards()
-{
-	//traverse to find each play card of vec_play_cards, then delete same type card in handcards
-	for (int j = 0; j < vec_play_cards.size(); j++) {
-		//traverse the handcards
-		//recall remove a played card of hand cards
-		remove_played_card_of_hand_cards( vec_play_cards.at(j) );
-	}
-}
 
 void HandCards::clear_play_cards()
 {
