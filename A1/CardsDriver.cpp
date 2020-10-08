@@ -10,7 +10,7 @@ int main() {
 	aDeck.initial_vec_deck();
 
 	//print all cards of deck, it should has 30 cards, which has 5 types, each type has 5 cards.
-	aDeck.print_vec_deck();
+	//aDeck.print_vec_deck();
 	
 	HandCards aHandCard;
 	//test the size of current deck
