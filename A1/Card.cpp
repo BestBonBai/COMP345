@@ -66,8 +66,8 @@ Deck::Deck()
 Deck::~Deck()
 {
 	//delete ptr
-	//delete(ptr_card);//pointer to card
-	//delete(temp_card);
+	delete(ptr_card);//pointer to card
+	delete(temp_card);
 }
 
 Deck::Deck(const Deck & d)
