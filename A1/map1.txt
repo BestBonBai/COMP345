@@ -1,0 +1,107 @@
+; map: ameroki.map
+; map made with the map maker
+; yura.net Risk 1.0.9.4
+
+name Ameroki Map
+
+[files]
+pic ameroki_pic.png
+map ameroki_map.gif
+crd ameroki.cards
+prv ameroki.jpg
+
+[continents]
+azio 5 #9aff80
+ameroki 10 yellow
+utropa 10 #a980ff
+amerpoll 5 red
+afrori 5 #ffd780
+ulstrailia 5 magenta
+
+[countries]
+1 siberia 1 329 152
+2 worrick 1 308 199
+3 yazteck 1 284 260
+4 kongrolo 1 278 295
+5 china 1 311 350
+6 middle_east 1 339 299
+7 sluci 1 358 376
+8 afganistan 1 400 350
+9 kancheria 1 388 313
+10 india 1 405 229
+11 japan 1 462 236
+12 new_guinia 6 513 314
+13 western_ulstrailia 6 525 340
+14 eastern_ulstarilia 6 567 355
+15 jacuncail 6 561 300
+16 tungu 5 537 178
+17 south_afrori 5 538 210
+18 north_afrori 5 486 131
+19 east_afrori 5 540 144
+20 egypt 5 443 100
+21 maganar 5 578 110
+22 pero 4 374 25
+23 heaurt 4 428 32
+24 vagnagale 4 327 40
+25 argentina 4 277 36
+26 ireland 3 128 127
+27 ihesia 3 130 96
+28 western_utropa 3 181 112
+29 souther_utropa 3 235 133
+30 northern_utropa 3 253 82
+31 senadlavin 3 177 155
+32 great_britain 3 244 168
+33 teramar 2 103 249
+34 western_united_states 2 164 235
+35 czeck 2 222 257
+36 alberta 2 122 295
+37 central_ameroki 2 182 329
+38 albania 2 205 305
+39 duiestie 2 164 355
+40 Quebeck 2 203 366
+41 vinenlant 2 128 373
+42 heal 1 271 397
+
+[borders]
+1 20 32 2
+2 1 10 35 3
+3 2 4 6 35
+4 3 35 5 6
+5 4 6 42 7 9
+6 3 5 9 4
+7 5 9 8
+8 9 7
+9 5 8 7 6 10
+10 11 2 9
+11 17 10
+12 15 13
+13 15 14 12
+14 15 13
+15 17 12 13 14
+16 18 17 19
+17 16 15 11
+18 20 19 16
+19 18 21 16
+20 23 1 18
+21 19 27
+22 24 23
+23 22 24 20
+24 25 22 23
+25 30 24
+26 27 31
+27 26 28 21 31
+28 27 31 29 32 30
+29 28 32 30
+30 28 25 29
+31 28 34 32 26 27
+32 28 1 34 29 31
+33 34 36
+34 38 35 33 36 37 31 32
+35 2 4 38 34 3
+36 34 37 41 33 39
+37 40 38 34 36 39
+38 40 35 34 37
+39 40 37 41 36
+40 42 39 37 38
+41 36 39
+42 5 40
