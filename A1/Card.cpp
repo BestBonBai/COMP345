@@ -6,9 +6,10 @@ Card::Card()
 
 Card::~Card()
 {
-	//delete pointer
-	//delete(card_type);
+	
 }
+
+
 
 Card::Card(const Card & c)
 {
@@ -67,7 +68,7 @@ Deck::~Deck()
 {
 	//delete ptr
 	delete(ptr_card);//pointer to card
-	delete(temp_card);
+	//delete(temp_card);
 }
 
 Deck::Deck(const Deck & d)
@@ -88,33 +89,45 @@ Deck & Deck::operator=(const Deck & d)
 
 void Deck::initial_vec_deck()
 {
-	//assign 30 cards in vec, each type has 5 cards.
-	for (int i = 0; i < 30; i++) {
-		ptr_card = new Card;
-		if (i < 5) {
-			ptr_card->set_card_type_id(0);
-			vec_deck.push_back(ptr_card);
+	//assign 30 cards in vec, each type has 5 cards, including 6 types.
+	for (int i = 0; i < 5; i++) {
+		for(int j=0; j<6; j++)
+		{
+			ptr_card = new Card;//create new Card
+
+			if(j == 0){
+				//type 1
+				ptr_card->set_card_type_id(0);
+				vec_deck.push_back(ptr_card);
+			}
+			else if (j == 1) {
+				//type 2
+				ptr_card->set_card_type_id(1);
+				vec_deck.push_back(ptr_card);
+			}
+			else if (j == 2) {
+				//type 3
+				ptr_card->set_card_type_id(2);
+				vec_deck.push_back(ptr_card);
+			}
+			else if (j == 3) {
+				//type 4
+				ptr_card->set_card_type_id(3);
+				vec_deck.push_back(ptr_card);
+			}
+			else if (j == 4) {
+				//type 5
+				ptr_card->set_card_type_id(4);
+				vec_deck.push_back(ptr_card);
+			}
+			else {
+				//type 6
+				ptr_card->set_card_type_id(5);
+				vec_deck.push_back(ptr_card);
+			}
 		}
-		if (i >= 5 && i < 10) {
-			ptr_card->set_card_type_id(1);
-			vec_deck.push_back(ptr_card);
-		}
-		if (i >= 10 && i < 15) {
-			ptr_card->set_card_type_id(2);
-			vec_deck.push_back(ptr_card);
-		}
-		if (i >= 15 && i < 20) {
-			ptr_card->set_card_type_id(3);
-			vec_deck.push_back(ptr_card);
-		}
-		if (i >= 20 && i < 25) {
-			ptr_card->set_card_type_id(4);
-			vec_deck.push_back(ptr_card);
-		}
-		if (i >= 25 && i < 30) {
-			ptr_card->set_card_type_id(5);
-			vec_deck.push_back(ptr_card);
-		}
+		
+		
 	}
 	cout << GREEN("Deck Cards is initialized\n") <<endl;
 }
@@ -136,8 +149,15 @@ void Deck::print_vec_deck()
 Card* Deck::draw()
 {
 	//draw randomly from the remaining of the deck
+	srand(time(NULL)); //initial random seed
+
 	//random is from 0 to the size of current vec_deck, [0, size). (rand()%(b-a))+a is [a,b).
-	int temp = (rand() % vec_deck.size());
+	int temp_size = vec_deck.size();
+	int temp = (rand() % temp_size);
+	
+	//test the random int
+	//cout << "temp is " << temp << endl;
+	
 	temp_card = vec_deck.at(temp);
 
 	//remove this card from the deck vector

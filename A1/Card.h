@@ -14,9 +14,11 @@
 #include <string>
 #include <vector>
 #include <algorithm> //for sort, union, intersection method
+#include <stdlib.h> //for srand, rand
+#include <time.h>//time
 #include <iterator> 
 
-//define some color styles for boring print
+//define some color styles for print
 #define COLOR(msg, code) "\033[1;" #code "m" msg "\033[0m" 
 #define RED(msg) COLOR(msg, 31)
 #define GREEN(msg) COLOR(msg, 32)
@@ -28,7 +30,8 @@ class Card
 {
 public:
 	Card();
-	~Card();
+	//virtual destructor 
+	 virtual ~Card();
 	//copy constructor
 	Card(const Card& c);
 	//assignment operators
@@ -89,8 +92,8 @@ private:
 	Card* temp_card;//for draw and remove the element of vector
 };
 
-//HandCards class inherit  Deck Class (convinent to change deck)
-class HandCards :  public Deck {
+//HandCards class inherit  Card Class 
+class HandCards :  public Card {
 
 public:
 	HandCards();
