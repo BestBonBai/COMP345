@@ -70,14 +70,14 @@ void GameEngine::gameStart() {
 
     //initialize empty attributes for each player
     vector<Territory*> territory;
-    vector<string*> card;
+    vector<Card*> card;
     vector<Order*> order;
 
     //create and display players according to user inputed quantity
     cout << "\n<Participating Player List>" << endl;
     player_list = new Player[userInputPlayerQuantity];
     for (int i = 0; i < userInputPlayerQuantity; i++) {
-        player_list[i] = Player(0,playerNameArr[i], territory, card, order);
+        player_list[i] = Player(playerNameArr[i]);
         cout << player_list[i].getName() << endl;
     }
 
@@ -138,18 +138,10 @@ void GameEngine::startupPhase(int playerQuantity, int orderQuantity, int reinfor
     //initialize army(amount of reinforcement) to each player 
     for (int k = 0; k < playerQuantity; k++) {
         (player_list + k)->setReinforcementPool(reinforcement);
-        //cout << (p_list + i)->getArmy() << endl;
+       
     }
 
-    //assign random orders to each player
-    const int o_range = 6;
-    srand(time(NULL));
-    //int o_index = (rand() % o_range);
-    for (int j = 0; j < orderQuantity; j++) {
-        for (int i = 0; i < playerQuantity; i++) {
-            (player_list + i)->issueOrder(orderPool[(rand() % o_range)]);
-        }
-    }
+
 
     //display each player's initial status
     cout << "\n\n<Initialized status for each player>" << endl;
@@ -180,8 +172,7 @@ void GameEngine::startupPhase(int playerQuantity, int orderQuantity, int reinfor
             //calcuate the contient bouns
              check = (*playerList[i]).playerContientBouns();
             
-            if(round(count / 3)>3)
-            {
+           
                 if (check == true) 
                 {
                  temp += 2*(int)round(count/3);
@@ -190,11 +181,9 @@ void GameEngine::startupPhase(int playerQuantity, int orderQuantity, int reinfor
                 {
                     temp +=(int)round(count / 3);
                 }
-            }
-            else 
-            {
+            
                 temp += 3;
-            }
+            
             playerList[i]->setReinforcementPool(temp);
             check = false;
             temp = 0;
@@ -202,20 +191,17 @@ void GameEngine::startupPhase(int playerQuantity, int orderQuantity, int reinfor
                
         }
     }
-    void  GameEngine::issueOrdersPhase(vector<Player*> playerList)
+    void  GameEngine::issueOrdersPhase(vector<Player*> playerList, vector<Territory*> Map)
     {
 
-       
-        for (int i = 0; i < playerList.size(); i++) 
-        {
-            playerList[i]->issueOrder();
+        playerList[1]->issueOrder(Map);
 
-        }
 
     }
 
     void GameEngine::excuteOrderPhase() 
     {
     
+      
     }
 

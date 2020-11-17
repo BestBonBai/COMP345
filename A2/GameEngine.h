@@ -1,9 +1,11 @@
 #pragma once
+#include<iostream>
 #include "Map.h"
 #include "MapLoader.h"
 #include "Card.h"
 #include "Player.h"
 #include "Orders.h"
+using namespace std;
 
 class GameEngine {
 public:
@@ -20,10 +22,8 @@ public:
 	Map* getMap();								//accessor
 	Player* getPlayerList();					//accessor
 	void startupPhase(int, int, int);
-
-
 	void reinforcmentPhase(vector<Player*>);
-	void issueOrdersPhase(vector<Player*>);
+	void issueOrdersPhase(vector<Player*>, vector<Territory*>);
 	void excuteOrderPhase();
 
 private:
@@ -36,5 +36,6 @@ private:
 	const int TerritoryQuantity = 10;			//initialize with ten territories
 	const string playerNameArr[5] = { "Player1","Player2","Player3","Player4","Player5" }; // fixed five player names
 	Territory* territory_array[10];				//Territory array
+	vector<Territory*> Map1;
 };
 

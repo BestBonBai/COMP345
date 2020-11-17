@@ -9,25 +9,27 @@ private:
     string tname, continent;     //the name and continent of a territory
     string territoryOwner;      //the owner of a territory
     int armyAmount;              //the amount of army in a territory
+    int index;
 
 public:
     Territory();                                //default constructor
     Territory(const Territory*);                //copy constructor
-    Territory(string);                          //one parameter constructor
-    Territory(string, string, int);             //three parameters constructor
+    Territory(string); 
+    Territory(string, string, int,int);             //three parameter constructor
+    Territory(string, string,string, int,int);      //three parameters constructor
     Territory& operator = (const Territory&);   //assignment operator
     ~Territory();                               //destructor
-
+    int getIndex();
     string getTname();                          //accessor
     string getContinent();                      //accessor
     string getTerritoryOwner();                //accessor
     int getArmyAmount();                        //accessor
-
+    void setIndex(int);
     void setTname(string);                      //mutator
     void setContinent(string);                  //mutator
     void setTerritoryOwner(string);            //mutator
     void setArmyAmount(int);                    //mutator
-
+   
 };
 
 //declaration of Map class with its members

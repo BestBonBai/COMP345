@@ -7,6 +7,7 @@ Territory::Territory() {
     continent = "default continent";
     territoryOwner = "default player";
     armyAmount = 0;
+    index = 0;
 }
 
 //copy constructor
@@ -15,6 +16,7 @@ Territory::Territory(const Territory* territory) {
     continent = territory->continent;
     territoryOwner = territory->territoryOwner;
     armyAmount = territory->armyAmount;
+    index = territory->index;
 }
 
 //one parameter constructor
@@ -22,13 +24,20 @@ Territory::Territory(string s) {
     tname = s;
 
 }
-
-//four parameters constructor
-Territory::Territory(string name, string continent, int army) {
+Territory::Territory(string name, string continent, int army,int index) {
     tname = name;
     this->continent = continent;
-
     armyAmount = army;
+    index = index;
+}
+
+//four parameters constructor
+Territory::Territory(string name, string continent,string territoryOwner, int army,int index) {
+    tname = name;
+    this->continent = continent;
+    this->territoryOwner = territoryOwner;
+    armyAmount = army;
+    int index;
 }
 
 //assignment operator
@@ -64,11 +73,21 @@ string Territory::getTerritoryOwner() {
     return territoryOwner;
 }
 
+
+int Territory::getIndex() 
+{
+    return index;
+}
 //accessor
 int Territory::getArmyAmount() {
     return armyAmount;
 }
 
+
+void Territory::setIndex(int i) 
+{
+    index = i;
+}
 //mutator
 void Territory::setTname(string s) {
     tname = s;
@@ -190,3 +209,7 @@ bool Map::Validate() {
 string* Map::getTerritoryList() {
     return this->territoryList;
 }
+
+
+
+

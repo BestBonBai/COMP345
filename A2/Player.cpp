@@ -1,14 +1,17 @@
 #include "Player.h"
-
-
+#include<time.h>
+#include <algorithm>  
+#include <assert.h>  
 using namespace std;
 
 //Default constructor
 Player::Player()
 {
 	name = "default";
-	reinforcementPool = 0;
-	
+	int reinforcementPool = 0;
+	vector<Territory*> territory;
+	vector<Card*> handCard;
+	vector<Order*> orderList;
 }
 
 //added constructor
@@ -18,6 +21,8 @@ Player::Player(string s)
 
 }
 
+
+//Four parmeter constructor
 Player::Player(int reinforcementPool,string name, vector<Territory*> t, vector<Card*> h, vector<Order*> o)
 {
 	this->reinforcementPool = reinforcementPool;
@@ -86,10 +91,54 @@ void Player::setReinforcementPool(int i) {
 	this->reinforcementPool = i;
 }
 
-
-void Player::toAttack() 
+void Player::setTerritory(Territory t)
 {
 
+	this->territory.push_back(&t);
+}
+
+vector<Territory*> Player::getTerritory() 
+{
+	return territory;
+
+}
+vector<Territory*> Player::get_neighbour_territories(vector<Territory*> Map) 
+{
+	vector<Territory*> neighbouring_terrritories;
+	for (int i = 0; i < territory.size(); i++) 
+	{
+		for (int j = 0; j < Map.size(); j++) 
+		{
+			if (!territory[i]->getTerritoryOwner().compare(Map[j]->getTerritoryOwner())) 
+			{
+				for (int k = 0; k < neighbouring_terrritories.size(); k++) 
+				{
+					if (!neighbouring_terrritories[k]->getTerritoryOwner().compare(Map[j]->getTerritoryOwner()) || neighbouring_terrritories.empty())
+					{
+					neighbouring_terrritories.push_back(Map[j]);
+					}
+				}
+				
+			}
+		}
+	
+	}
+
+	return neighbouring_terrritories;
+
+}
+
+vector<Territory*> Player::toAttack(vector<Territory*> Map)
+{
+	vector<Territory*> AttackList;
+	AttackList = get_neighbour_territories(Map);
+
+	cout << "The list of territories that are be Attack" << endl;
+	for (int i = 0; i < AttackList.size(); i++)
+	{
+		cout <<"Index "<<i<< " "<<(*AttackList[i]).getTname() << " "<<(*AttackList[i]).getContinent()<< endl;
+	}
+	return AttackList;
 }
 
 vector<Territory*> Player::toDefend()
@@ -99,7 +148,7 @@ vector<Territory*> Player::toDefend()
 	cout << "The list of territories that are be defended" << endl;
 	for (int i = 0; i < territory.size(); i++)
 	{
-		cout << (*territory[i]).getTname() << endl;
+		cout << "Index " << i << " " << (*territory[i]).getTname() << " " << (*territory[i]).getContinent() << endl;
 		temp = territory[i];
 		defendList.push_back(temp);
 	}
@@ -108,13 +157,13 @@ vector<Territory*> Player::toDefend()
 
 bool Player::playerContientBouns()
 { 
-	string a = "Artic";
-	string b = "Canada";
-	string c = "Russia";
-	string d = "Norway";
-	string e = "United_States";
-	string f = "Denmark";
-	int c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0,c6 = 0;
+	string a = "NA";
+	string b = "AS";
+	string c = "SA";
+	string d = "AU";
+	string e = "EU";
+	string f = "AF";
+	int c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0,c6=0;
 	for (int i = 0; i < territory.size(); i++)
 	{
 		if ((*territory[i]).getContinent().compare(a))
@@ -140,91 +189,60 @@ bool Player::playerContientBouns()
 		if ((*territory[i]).getContinent().compare(f))
 		{
 			c6++;
-		}	
+		}
+	
 		
 	}
-	if (c1 == 5) { return true; } 
-	if (c2 == 5) { return true; }
-	if (c3 == 8) { return true; }
-	if (c4 == 2) { return true; }
-	if (c5 == 4) { return true; }
-	if (c6 == 5) { return true; }
+	if (c1 == 3) { return true; }//NA 
+	if (c2 == 3) { return true; }//AS
+	if (c3 == 1) { return true; }//SA
+	if (c4 == 1) { return true; }//AU
+	if (c5 == 1) { return true; }//EU
+	if (c6 == 1) { return true; }//EU
+	
 
 	
 	return false;
 }
 
 
-void Player::issueOrder()
+void Player::issueOrder(vector<Territory*> Map)
 {
-	int actionNumber = rand() % 6;
-	
-		int countAction = 5;
-		switch (actionNumber)
-		{
-			//Choose which neighbor to attack
-		case 0:
-			toAttack();
-			//Choose which neighbor to Deffend
-		case 1:
-			toDefend();
+	vector<Territory*> AttackList;
+	AttackList = toAttack(Map);
+	vector<Territory*> DefendList;
+	DefendList = toDefend();
 
-		case 2:
 			//Deploy order until no armies left	
 			while (getReinforcementPool() != 0)
 			{
 				int army = getReinforcementPool();
-				int j = 0;
-				toDefend();
-				string temp1 = NULL;
-
-				cout << "Chose which territories you want to defend. " << endl;
-				cin >> temp1;
-				bool check = true;
-				while (check)
-					for (int i = 0; i <territory.size(); i++)
-					{
-						if (temp1.compare(territory[i]->getTname()))
-						{
-							j = i;
-							check = false;
-						}
-						else
-						{
-							cout << "Please enter correct terrioty name. " << endl;
-							cin >> temp1;
-						}
-					}
-
-				int temp2 = 0;
-
+                
+				for (int i = 0; i < DefendList.size(); i++)
 				{
-					cout << "How many arrmies you want to add?" << endl;
-					cin >> temp2;
-					while (temp2 > army || army < 0)
-					{
-						cout << "Please enter correct number" << endl;
-						cin >> temp2;
-					}
-					army = army - temp2;
-					territory[j]->setArmyAmount(temp2);
+					srand(time(NULL));
+					int temp = rand() % army + 1;
+					temp += DefendList[i]->getArmyAmount();
+					DefendList[i]->setArmyAmount(temp);
+					army = temp - army;
 					setReinforcementPool(army);
-
+					if (army = 1)
+					{
+						temp = 1;
+						temp += DefendList[i]->getArmyAmount();
+						DefendList[i]->setArmyAmount(temp);
+						setReinforcementPool(0);
+					}
 				}
-				check = true;
-				j = 0;
-
-
 			}
-		
-	case 3:
-		toAttack();
-	case 4:
-		toDefend();
-	case 5:
-	   //using card;
+			
+			//Advance order
+			srand(time(NULL));
+			int actionNumber = rand()% AttackList.size();
+			
+			int Enemy = AttackList[actionNumber]->getArmyAmount();
 
-	}
+
 	
 }
 
@@ -246,12 +264,7 @@ void Player::printOrder()
 
 void Player::printHandcard()
 {
-	cout << "The list of Player's handcard" << endl;
-	for (int i = 0; i < handCard.size(); i++)
-	{
-		cout << *handCard[i] << endl;
-	}
-	cout << endl;
+
 
 
 }

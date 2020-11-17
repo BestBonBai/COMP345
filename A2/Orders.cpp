@@ -102,6 +102,7 @@ Deploy::Deploy()
 {
 	cout << "deploy is creating..." << endl;
 	set_type_id(0);
+
 }
 
 Deploy::~Deploy()
@@ -151,6 +152,7 @@ Airlift::Airlift()
 
 Airlift::~Airlift()
 {
+
 }
 
 Negotiate::Negotiate()
